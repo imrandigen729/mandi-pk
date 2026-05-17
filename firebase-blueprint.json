@@ -1,0 +1,288 @@
+{
+  "entities": {
+    "Listing": {
+      "title": "Listing",
+      "description": "A marketplace item listed for sale.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "subcategory": { "type": "string" },
+        "condition": { "type": "string", "enum": ["New", "Used", "Not Applicable"] },
+        "price": { "type": "number" },
+        "quantity": { "type": "number" },
+        "shippingCharges": { "type": "number" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "sellerName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "whatsappNumber": { "type": "string" },
+        "city": { "type": "string" },
+        "locationArea": { "type": "string" },
+        "customFields": { "type": "object" },
+        "isFeatured": { "type": "boolean" },
+        "isBoosted": { "type": "boolean" },
+        "promotionStatus": { "type": "string", "enum": ["NONE", "PENDING", "APPROVED", "REJECTED"] },
+        "promotionType": { "type": "string", "enum": ["FEATURED", "BOOSTED", "PREMIUM_VERIFIED"] },
+        "status": { "type": "string", "enum": ["PENDING", "LIVE", "BOOKED", "SHIPPED", "PAID", "SOLD"] },
+        "ownerId": { "type": "string" },
+        "views": { "type": "number" },
+        "saves": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["title", "description", "category", "price", "images", "sellerName", "phoneNumber", "status", "ownerId", "createdAt", "updatedAt"]
+    },
+    "userProfile": {
+      "title": "User Profile",
+      "description": "User profile with verification status.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "email": { "type": "string" },
+        "city": { "type": "string" },
+        "address": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "isPremiumVerified": { "type": "boolean" },
+        "verificationStatus": { "type": "string", "enum": ["NONE", "PENDING", "APPROVED", "REJECTED"] },
+        "accountStatus": { "type": "string", "enum": ["active", "blocked", "deleted"] },
+        "isBlocked": { "type": "boolean" },
+        "blockedAt": { "type": "timestamp" },
+        "blockedBy": { "type": "string" },
+        "blockReason": { "type": "string" },
+        "adminNotes": { "type": "string" },
+        "unblockedAt": { "type": "timestamp" },
+        "unblockedBy": { "type": "string" },
+        "appealStatus": { "type": "string", "enum": ["NONE", "PENDING", "RESOLVED"] },
+        "appealMessage": { "type": "string" },
+        "trustRanking": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referralCount": { "type": "number" },
+        "referredBy": { "type": "string" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["isVerified", "createdAt"]
+    },
+    "order": {
+      "title": "Order",
+      "description": "A booking or sale transaction for a listing.",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "listingTitle": { "type": "string" },
+        "listingImage": { "type": "string" },
+        "buyerId": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unitPrice": { "type": "number" },
+        "shippingCharges": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["BOOKED", "SHIPPED", "PAID", "SOLD"] },
+        "buyerName": { "type": "string" },
+        "buyerAddress": { "type": "string" },
+        "buyerContact": { "type": "string" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" },
+        "expiresAt": { "type": "timestamp" }
+      },
+      "required": ["listingId", "buyerId", "sellerId", "quantity", "unitPrice", "shippingCharges", "totalAmount", "status", "buyerName", "buyerAddress", "buyerContact", "createdAt", "updatedAt", "expiresAt"]
+    },
+    "notification": {
+      "title": "Notification",
+      "description": "In-app notification for order updates or status changes.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["userId", "message", "type", "read", "createdAt"]
+    },
+    "chat": {
+      "title": "Chat",
+      "description": "A chat session between a buyer and seller regarding a listing.",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "buyerId": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "isBlocked": { "type": "boolean" },
+        "blockedBy": { "type": "string" },
+        "isArchivedBuyer": { "type": "boolean" },
+        "isArchivedSeller": { "type": "boolean" },
+        "isDeletedBuyer": { "type": "boolean" },
+        "isDeletedSeller": { "type": "boolean" },
+        "unreadCountBuyer": { "type": "number" },
+        "unreadCountSeller": { "type": "number" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["listingId", "buyerId", "sellerId", "lastMessage", "updatedAt"]
+    },
+    "favorite": {
+      "title": "Favorite",
+      "description": "A listing saved as favorite by a user.",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "title": { "type": "string" },
+        "price": { "type": "number" },
+        "image": { "type": "string" },
+        "savedAt": { "type": "timestamp" }
+      },
+      "required": ["listingId", "title", "price", "savedAt"]
+    },
+    "message": {
+      "title": "Chat Message",
+      "description": "A single message inside a chat.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "isOffer": { "type": "boolean" },
+        "offerAmount": { "type": "number" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["senderId", "text", "isOffer", "createdAt"]
+    },
+    "report": {
+      "title": "Listing Report",
+      "description": "A report against a listing.",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "RESOLVED"] },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["listingId", "reporterId", "reason", "status", "createdAt"]
+    },
+    "profileReport": {
+      "title": "Profile Report",
+      "description": "A report against a user profile.",
+      "type": "object",
+      "properties": {
+        "profileId": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "RESOLVED"] },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["profileId", "reporterId", "reason", "status", "createdAt"]
+    },
+    "supportTicket": {
+      "title": "Support Ticket",
+      "description": "A user-submitted support request.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "CLOSED"] },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["userId", "subject", "message", "status", "createdAt"]
+    },
+    "promotionRequest": {
+      "title": "Promotion Request",
+      "description": "A request for a featured listing, boost, or verified badge.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "targetId": { "type": "string" },
+        "type": { "type": "string", "enum": ["FEATURED", "BOOST", "VERIFIED"] },
+        "planName": { "type": "string" },
+        "amount": { "type": "number" },
+        "paymentProofImage": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "durationDays": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["userId", "targetId", "type", "planName", "amount", "paymentProofImage", "status", "durationDays", "createdAt", "updatedAt"]
+    },
+    "authorizedAdmin": {
+      "title": "Authorized Admin",
+      "description": "An email address authorized to perform administrative actions.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "addedAt": { "type": "timestamp" },
+        "addedBy": { "type": "string" }
+      },
+      "required": ["email", "addedAt"]
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Frequently asked questions.",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["question", "answer", "order", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "listings/{listingId}": {
+      "schema": { "$ref": "#/entities/Listing" },
+      "description": "The main collection storing marketplace listings."
+    },
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/userProfile" },
+      "description": "User profiles system."
+    },
+    "users/{userId}/favorites/{listingId}": {
+      "schema": { "$ref": "#/entities/favorite" },
+      "description": "User favorite listings."
+    },
+    "chats/{chatId}": {
+      "schema": { "$ref": "#/entities/chat" },
+      "description": "Chat sessions."
+    },
+    "chats/{chatId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/message" },
+      "description": "Messages inside a chat."
+    },
+    "reports/{reportId}": {
+      "schema": { "$ref": "#/entities/report" },
+      "description": "Listing reports by users."
+    },
+    "profileReports/{reportId}": {
+      "schema": { "$ref": "#/entities/profileReport" },
+      "description": "Profile reports by users."
+    },
+    "supportTickets/{ticketId}": {
+      "schema": { "$ref": "#/entities/supportTicket" },
+      "description": "Support tickets submitted by users."
+    },
+    "orders/{orderId}": {
+      "schema": { "$ref": "#/entities/order" },
+      "description": "Marketplace orders and bookings."
+    },
+    "notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/notification" },
+      "description": "User notifications."
+    },
+    "promotionRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/promotionRequest" },
+      "description": "Requests for featured/boosted listings or badges."
+    },
+    "authorizedAdmins/{adminId}": {
+      "schema": { "$ref": "#/entities/authorizedAdmin" },
+      "description": "Collection of authorized admin emails."
+    },
+    "faqs/{faqId}": {
+      "schema": { "$ref": "#/entities/faq" },
+      "description": "Collection of frequently asked questions."
+    }
+  }
+}
